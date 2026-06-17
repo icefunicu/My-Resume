@@ -206,6 +206,10 @@ test.describe('Portfolio E2E', () => {
 
         const experienceSection = page.locator('#experience');
         await expect(experienceSection.getByText('独立开发者').first()).toBeVisible();
+        await expect(experienceSection.getByText('项目名称/实践场景：中软国际')).toBeVisible();
+        await expect(
+            experienceSection.getByText('技术栈：FastAPI / LangGraph / PostgreSQL / Qdrant'),
+        ).toBeVisible();
         await expect(experienceSection.getByText('RentBox 共享擦窗宝小程序')).toBeVisible();
         await expect(experienceSection.getByText('论文检索任务平台')).toBeVisible();
         await expect(experienceSection.getByText('智能客服运行时')).toBeVisible();

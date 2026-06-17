@@ -43,6 +43,9 @@ function getTimelinePreviewPoints(
   const points: string[] = [];
   const seen = new Set<string>();
   const details = item.expandedDetails;
+  const techStack = details?.techStack?.length
+    ? details.techStack
+    : item.techTags;
 
   const pushPoint = (value?: string) => {
     const normalized = normalizePreviewText(value);
@@ -51,34 +54,40 @@ function getTimelinePreviewPoints(
     points.push(normalized);
   };
 
+  pushPoint(
+    locale === "en"
+      ? `Project / context: ${item.company}`
+      : `项目名称/实践场景：${item.company}`,
+  );
+
+  if (techStack.length > 0) {
+    pushPoint(
+      locale === "en"
+        ? `Tech stack: ${techStack.slice(0, 4).join(" / ")}`
+        : `技术栈：${techStack.slice(0, 4).join(" / ")}`,
+    );
+  }
+
   item.keyOutcomes?.forEach(pushPoint);
 
   if (details) {
     const solutionPoints = extractMarkdownListItems(details.solution);
 
-    if (points.length === 0 && solutionPoints.length > 0) {
+    if (
+      points.length < MAX_TIMELINE_PREVIEW_POINTS &&
+      solutionPoints.length > 0
+    ) {
       solutionPoints.forEach(pushPoint);
-    } else if (points.length === 0) {
+    } else if (points.length < MAX_TIMELINE_PREVIEW_POINTS) {
       pushPoint(details.solution);
     }
 
     if (points.length < MAX_TIMELINE_PREVIEW_POINTS) {
       pushPoint(details.result);
     }
-
-    if (
-      points.length < MAX_TIMELINE_PREVIEW_POINTS &&
-      details.techStack?.length
-    ) {
-      pushPoint(
-        locale === "en"
-          ? `Tech stack: ${details.techStack.slice(0, 4).join(" / ")}`
-          : `技术栈：${details.techStack.slice(0, 4).join(" / ")}`,
-      );
-    }
   }
 
-  if (points.length === 0) {
+  if (points.length < MAX_TIMELINE_PREVIEW_POINTS) {
     pushPoint(item.engineeringDepth?.[locale] ?? item.engineeringDepth?.zh);
     pushPoint(item.businessValue?.[locale] ?? item.businessValue?.zh);
     pushPoint(item.summary);
