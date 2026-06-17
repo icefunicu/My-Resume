@@ -10,8 +10,8 @@
 ## 2. 仓库画像（扫描结果）
 - 项目标识：`portfolio`
 - 包管理器：`npm`
-- 主要语言：TypeScript (78), JavaScript (5), YAML (1), CSS (1)
-- 技术栈：Next.js, React, Tailwind CSS, TypeScript, Framer Motion, GitHub Pages
+- 主要语言：TypeScript、JavaScript / MJS、YAML、CSS
+- 技术栈：Next.js 16、React 19、Tailwind CSS 4、TypeScript 5、Framer Motion、Vitest、Playwright、GitHub Pages
 - 关键路径：
   - `README.md`
   - `package.json`
@@ -33,7 +33,7 @@
 - 部署关注点：
   - 检测到 Next.js，发布前至少验证一次标准构建以覆盖服务端模式。
   - 检测到 GitHub Pages 相关配置，发布前验证静态导出链路。
-  - 检测到双部署场景：保持 Vercel 构建与 GitHub Pages 静态导出同时可通过。
+  - 检测到三端发布场景：保持 Vercel、GitHub Pages 与自托管服务器说明同时可验证。
   - 检测到静态导出信号：改动 API、headers、rewrite、redirect 时必须提供降级或兼容实现。
 
 ## 3. 协作原则
@@ -64,24 +64,42 @@
 ## 6. 质量门禁
 - 按顺序执行以下命令并确保成功：
   1. `npm run lint`
-  2. `npm run build`
+  2. `npm run test:unit`
   3. `npm run test:e2e`
-  4. `npm run build:pages`
-  5. `npm run check:links`
+  4. `npm run build`
+  5. `npm run build:pages`
+  6. `npm run check:links`
+  7. `npm run check:performance`
+  8. `npm run verify:public`
 - 检测到可用脚本：
   - `analyze`
   - `build`
+  - `build:data`
   - `build:pages`
   - `check:links`
+  - `check:performance`
   - `dev`
+  - `dev:external`
+  - `dev:external:trace`
+  - `dev:external:webpack`
+  - `dev:trace`
+  - `dev:webpack`
+  - `deploy:server`
+  - `deploy:server:status`
   - `format`
   - `format:check`
   - `lint`
   - `lint:fix`
   - `optimize:images`
+  - `push:all`
+  - `setup:fast-dev-cache`
+  - `setup:server:ci`
+  - `setup:server:https`
   - `start`
   - `test:e2e`
   - `test:e2e:ui`
+  - `test:unit`
+  - `verify:public`
 
 ## 7. 提交与评审
 - Commit message 使用 Conventional Commits：`feat|fix|refactor|docs|test|chore|ci`。

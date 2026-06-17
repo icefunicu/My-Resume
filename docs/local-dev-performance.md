@@ -35,6 +35,12 @@
 - `npm run dev:external:trace`
   - 外置盘友好模式下的 tracing 排障命令。
 
+### 配置约束
+
+- `next.config.ts` 会校验 `NEXT_DIST_DIR`：如果设置了该变量，最终解析路径必须仍在项目目录内。
+- 外置盘友好模式使用项目内 `.next-dev-cache` 作为 `NEXT_DIST_DIR`，再由 `scripts/setup-fast-dev-cache.mjs` 把这个目录链接到本地快盘。
+- 因此不要把 `NEXT_DIST_DIR` 直接指向项目外路径；如需迁移 I/O，请通过 `.next-dev-cache` 链接目录完成。
+
 ## 推荐使用方式
 
 ### 方案 A：直接使用本地系统盘缓存
@@ -95,6 +101,7 @@ npm run dev:external
 - 把项目目录加入 Windows Defender exclusion
 - 把缓存目标目录也加入 Windows Defender exclusion
 - tracing 和详细 fetch logging 只在单次排障时开启
+- 如果 `npm run build:pages` 提示 `.next` 或 `out` 被锁定，先停止 `npm run dev`、Playwright webServer 或其他文件监听进程后再重试。
 
 ## 官方依据
 

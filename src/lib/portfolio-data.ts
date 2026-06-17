@@ -74,11 +74,11 @@ const enHero: HeroData = {
 const enImpactCopy: Record<string, ImpactCopy> = {
   "impact-rag": {
     title: "Knowledge QA",
-    label: "retrieval channels",
+    label: "Agent upgrade",
     description:
-      "RAG-QA System: structured, full-text, and vector retrieval with weighted RRF and reranking for better hit rate and answer traceability.",
+      "RAG-QA System: hybrid retrieval plus LangGraph recovery, agent autonomy, inference optimization, and platform SDK access.",
     details:
-      "Turns scattered documents into a continuously synced and citation-backed enterprise knowledge QA capability.",
+      "Turns scattered documents into a continuously synced, citation-backed, and agent-configurable enterprise AI QA platform.",
   },
   "impact-wechat": {
     title: "Open-source signal",
@@ -291,13 +291,13 @@ const enExperienceCopy: Record<string, ExperienceCopy> = {
   "exp-chinasoft": {
     role: "AI Application Engineer",
     company: "Chinasoft International · RAG-QA System",
-    location: "Enterprise knowledge QA",
+    location: "Enterprise AI QA platform",
     summary:
-      "Built an enterprise RAG-QA system with multi-source ingestion, hybrid retrieval, citation-backed answers, human clarification, governance, and regression evaluation.",
+      "Built an enterprise AI QA platform with multi-source ingestion, hybrid retrieval, LangGraph recovery, agent autonomy, inference governance, and SDK access.",
     keyOutcomes: [
       "Combined structured, full-text, and vector retrieval.",
       "Used weighted RRF and reranking to balance hit rate and traceability, then exposed retrieve/debug evidence paths.",
-      "Connected retrieval and QA into a LangGraph runtime with checkpoint recovery, step_events, verification metadata, and offline evaluation gates.",
+      "Extended the LangGraph runtime with tool registration, DAG decomposition, reflection, layered memory, semantic caching, model-health routing, hallucination checks, and Python SDK access.",
     ],
   },
   "exp-noc": {
@@ -409,8 +409,8 @@ const enExperienceCopy: Record<string, ExperienceCopy> = {
   "proj-rag-qa-system": {
     name: "RAG-QA System",
     summary:
-      "An enterprise knowledge QA system with multi-source ingestion, LangGraph v2 recovery, retrieve/debug evidence inspection, citation-backed answers, and offline regression gates.",
-    impact: "Hybrid retrieval + LangGraph v2 runtime + offline eval loop",
+      "An enterprise AI QA platform with multi-source ingestion, hybrid retrieval, LangGraph recovery, agent autonomy, inference governance, retrieve/debug inspection, and Python SDK access.",
+    impact: "Hybrid retrieval + agent autonomy + inference governance",
   },
   "proj-ipa-demo": {
     name: "IPA Demo",

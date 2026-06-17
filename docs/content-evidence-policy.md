@@ -10,6 +10,7 @@
 - `projects`
 - `impact`
 - 与 `verification`、`expandedDetails`、`techTags`、`keyOutcomes` 相关的补充或改写
+- `docs/resume-*.md` 中与作品集项目、经历和指标口径有关的文案同步
 
 ## 2. 证据优先级
 
@@ -40,6 +41,8 @@
 - 更新 `summary`、`keyOutcomes`、`expandedDetails`、`techTags` 前，必须先审阅相关项目源码。
 - 技术栈必须能在源码、依赖、配置或文档中找到落点。
 - 性能数据、规模数据、自动化能力、治理能力等指标，必须能说明来源。
+- 当前网站允许用父级条目承载一组独立开发者项目，例如 `独立开发者｜AI 应用 / 全栈项目` 作为父项，RentBox、论文检索任务平台、智能客服运行时、微信智能助手作为子项继续保留独立 slug 和详情页。
+- 简历文档可以按投递场景拆开父级项目，但拆分后的 bullet 仍必须复用对应子项目的证据来源和置信度，不得因为拆分而升级证据等级。
 
 ### 3.2 PDF 的使用边界
 
@@ -86,6 +89,12 @@ PDF 简历不单独用于：
    - 区分事实骨架和源码亮点
 5. 补 `verification`
    - 明确来源类型和验证时间
+6. 同步相关文档
+   - README 项目概览
+   - `docs/resume-writing-kit.md`
+   - `docs/resume-experience-copy.md`
+   - `docs/resume-star-bank.md`
+   - `docs/resume-metrics-checklist.md`
 
 ## 5. 写作约束
 
@@ -102,11 +111,13 @@ PDF 简历不单独用于：
 - 证据来自源码还是 PDF
 - 哪些是源码已审后的技术亮点
 - 哪些仅是人工材料支撑的事实表述
+- 网站父子分组、简历拆分条目和详情页 slug 是否仍保持一致
 
 ## 7. 与当前仓库的关系
 
 - 主数据文件：`src/data.ts`
 - 类型定义：`src/types.ts`
-- 展示入口：`src/app/page.tsx`、`src/components/*`
+- 展示入口：`src/app/page.tsx`、`src/app/[locale]/page.tsx`、`src/app/experiences/[slug]/page.tsx`、`src/components/*`
+- 简历素材：`docs/resume-ai-main.md`、`docs/resume-experience-copy.md`、`docs/resume-star-bank.md`、`docs/resume-writing-kit.md`、`docs/resume-metrics-checklist.md`
 
 如果规则与口头约定冲突，以“源码优先、PDF 只校对事实骨架”的原则为准。

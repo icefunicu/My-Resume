@@ -1,6 +1,6 @@
 # Portfolio
 
-基于 Next.js 16 构建的个人作品集网站，面向 AI 应用工程师 / RAG / Agent 方向，强调可验证的工程交付、项目证据沉淀与招聘方快速浏览体验。
+基于 Next.js 16 构建的个人作品集网站，面向 AI 应用工程师 / RAG / Agent 方向，强调可验证的工程交付、项目证据沉淀、双语路径与招聘方快速浏览体验。
 
 ## 在线地址
 
@@ -14,23 +14,28 @@
 - 站点主题：杜旭嘉的 AI 应用工程作品集
 - 当前定位：AI 应用工程师（RAG / Agent）
 - 核心方向：检索增强、智能体运行时、业务系统集成、可验证交付
+- 首页结构：Hero 定位、经历分组、Impact 指标、精选项目、项目案例、工程实力中枢与联系入口
 - 代表项目：
+  - `独立开发者｜AI 应用 / 全栈项目`
   - `RentBox 共享擦窗宝小程序`
   - `论文检索任务平台`
   - `智能客服运行时`
   - `微信智能助手`
   - `RAG-QA System`
+  - `SubMed 医学论文检索小程序`
   - `EasyCloudPan`
+  - `九州通四向穿梭车路径规划系统`
 
 ## 技术栈
 
 - 框架：Next.js 16、React 19、TypeScript 5
 - 样式与交互：Tailwind CSS 4、Framer Motion
 - 测试：Playwright、Vitest
-- 工具链：ESLint、Prettier、Bundle Analyzer
+- 工具链：ESLint、Prettier、Bundle Analyzer、next-image-export-optimizer
 - 部署形态：
   - 服务端构建：`output: 'standalone'`
   - 静态导出：`output: 'export'`
+  - 运行时能力：中英文路径、详情页与拦截路由、简历下载 API / 静态下载兼容、GitHub 遥测降级、CSP 与缓存响应头、GA4 可选统计
 
 ## 本地开发
 
@@ -125,13 +130,18 @@ npm run test:e2e
 npm run build
 npm run build:pages
 npm run check:links
+npm run check:performance
+npm run verify:public
 
-# 分析与部署
+# 数据、分析与部署
+npm run build:data
 npm run analyze
+npm run optimize:images
 npm run deploy:server
 npm run deploy:server:status
 npm run setup:server:ci
 npm run setup:server:https
+npm run push:all
 ```
 
 ## 测试与验证
@@ -144,14 +154,20 @@ npm run setup:server:https
 - `npm run build`
 - `npm run build:pages`
 - `npm run check:links`
+- `npm run check:performance`
+- `npm run verify:public`
 
 说明：
 
+- 单元测试目录为 `tests/unit`，由 Vitest + jsdom 执行
 - E2E 测试目录为 `tests/e2e`
 - Playwright 默认覆盖 `chromium` 和 `Mobile Chrome`
 - 本地执行 E2E 时会自动拉起 `npm run dev`
+- `npm run build` 会先执行 `npm run build:data`；CI 中通过 `SKIP_GITHUB_FETCH=1` 跳过 GitHub 数据抓取
+- `npm run build:pages` 会进入静态导出模式，临时移出拦截路由、清理 `.next` / `out`，构建后运行图片优化
+- `npm run verify:public` 用于校验 Vercel、GitHub Pages 与自托管公开端点；是否强制校验自托管主域名由环境变量控制
 
-GitHub Actions 会在 `main` 分支的 push / pull request 上执行 lint、E2E、单测、服务端构建、静态导出与链接检查。
+GitHub Actions 会在 `main` 分支的 push / pull request 上执行 lint、E2E、单测、服务端构建、静态导出与链接检查；非 PR 的 `main` 构建还会部署 GitHub Pages 并验证公开端点。
 
 ## 部署
 
@@ -183,8 +199,8 @@ portfolio/
 │  └─ data/                # GitHub 遥测等辅助数据
 ├─ docs/                   # 开发、部署、履历素材相关文档
 ├─ scripts/                # 构建、部署、链接检查、缓存初始化脚本
-├─ tests/                  # E2E 测试
-├─ public/                 # 静态资源
+├─ tests/                  # 单元测试与 E2E 测试
+├─ public/                 # 静态资源、简历 PDF、OG 图与图片优化哈希
 └─ .github/workflows/      # CI / Pages 工作流
 ```
 
@@ -192,7 +208,10 @@ portfolio/
 
 - [docs/local-dev-performance.md](docs/local-dev-performance.md)
 - [docs/deployment-channels.md](docs/deployment-channels.md)
+- [docs/content-evidence-policy.md](docs/content-evidence-policy.md)
 - [docs/resume-ai-main.md](docs/resume-ai-main.md)
+- [docs/resume-experience-copy.md](docs/resume-experience-copy.md)
+- [docs/resume-star-bank.md](docs/resume-star-bank.md)
 - [docs/resume-writing-kit.md](docs/resume-writing-kit.md)
 - [docs/resume-metrics-checklist.md](docs/resume-metrics-checklist.md)
 

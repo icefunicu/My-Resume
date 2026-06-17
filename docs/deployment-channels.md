@@ -1,13 +1,13 @@
 # Deployment Channels
 
-This project publishes through three separate channels:
+This project publishes through three separate channels. Keep this file aligned with `package.json`, `.github/workflows/pages.yml`, `next.config.ts`, and the deployment scripts under `scripts/`.
 
 ## Language Strategy
 
 - Build-time default locale is controlled by `NEXT_PUBLIC_DEFAULT_LOCALE`.
 - `Self-hosted` uses `zh`.
 - `GitHub Pages` uses `zh`.
-- `Vercel` uses `en`.
+- `Vercel` uses `en`; when `NEXT_PUBLIC_DEFAULT_LOCALE` is not set, `src/lib/deployment-locale.ts` infers `en` from the Vercel runtime flag.
 - Shareable locale paths are always available:
   - `/zh`
   - `/en`
@@ -71,7 +71,7 @@ npm run setup:server:https
 
 The HTTPS bootstrap installs an isolated `certbot` runtime on the server, writes a temporary HTTP ACME config, issues a certificate for `www.byted.online`, and then switches Nginx to the final HTTPS proxy config. If the domain is still blocked by ICP/备案 or upstream ingress policy, certificate issuance will fail until that network prerequisite is cleared.
 
-## April 2026 domain checklist
+## Current domain checklist
 
 The ICP filing for `www.byted.online` is complete. Treat the canonical domain as the primary public entry and keep the fallback IP only for troubleshooting.
 
@@ -160,6 +160,8 @@ test -f out/zh/index.html
 test -f out/en/index.html
 ```
 
+`npm run build:pages` sets `NEXT_PUBLIC_STATIC_EXPORT=true`, defaults the static locale to `zh`, accepts an optional GitHub Pages base path argument, temporarily disables the intercepting experience route, clears `.next` and `out`, runs `npm run build`, and then runs `npm run optimize:images`.
+
 ## Rollback
 
 The active release is always the `/var/www/portfolio/current` symlink.
@@ -169,5 +171,5 @@ To roll back, repoint it to an older release under `/var/www/portfolio/releases/
 
 - The self-hosted channel is intentionally independent of GitHub Actions. GitHub only receives the same git push and continues triggering `Vercel` plus `Pages`.
 - The server build runs with `/root/.local/share/mise/installs/node/22.22.1/bin/node`, not the system default `node`.
-- Public endpoint verification in `.github/workflows/pages.yml` always checks `Vercel`, `GitHub Pages`, and the self-hosted IP endpoint. Set `VERIFY_SERVER_PUBLIC_URL=true` once the canonical domain is fully serving with the correct certificate so `https://www.byted.online` becomes a required gate.
+- Public endpoint verification in `.github/workflows/pages.yml` always checks `Vercel`, `GitHub Pages`, and the self-hosted IP endpoint. The self-hosted domain is checked as optional by default; set `VERIFY_SERVER_PUBLIC_URL=true`, `1`, `required`, or `strict` when `https://www.byted.online` should become a required gate.
 - `git push` across GitHub and the server is not atomic. If one remote succeeds and the other fails, resolve the failed side explicitly and push again.
