@@ -15,8 +15,8 @@ const localeConfig = localizedSiteConfig[defaultLocale];
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
   title: {
-    template: `%s | ${localeConfig.name} - ${localeConfig.role}`,
-    default: `${localeConfig.name} - ${localeConfig.role}`,
+    template: `%s | ${siteConfig.siteName}`,
+    default: siteConfig.siteName,
   },
   description: localeConfig.description,
   keywords: [...localeConfig.keywords],

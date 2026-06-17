@@ -72,8 +72,8 @@ function buildBaseMetadata(
 ): Metadata {
   const localeConfig = localizedSiteConfig[locale];
   const description = options?.description ?? localeConfig.description;
-  const title =
-    options?.title ?? `${localeConfig.name} - ${localeConfig.role}`;
+  const title = options?.title ?? { absolute: siteConfig.siteName };
+  const displayTitle = options?.title ?? siteConfig.siteName;
   const absoluteUrl = buildAbsoluteUrl(pathname);
 
   return {
@@ -84,13 +84,10 @@ function buildBaseMetadata(
     authors: [{ name: localeConfig.name }],
     alternates: buildAlternates(pathname),
     openGraph: {
-      title,
+      title: displayTitle,
       description,
       url: absoluteUrl,
-      siteName:
-        locale === "en"
-          ? `${localeConfig.name} Portfolio`
-          : `${localeConfig.name}作品集`,
+      siteName: siteConfig.siteName,
       type: "website",
       locale: getOpenGraphLocale(locale),
       images: [
@@ -98,13 +95,13 @@ function buildBaseMetadata(
           url: "/og.png",
           width: 1200,
           height: 630,
-          alt: title,
+          alt: displayTitle,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: displayTitle,
       description,
       images: [siteConfig.ogImagePath],
     },

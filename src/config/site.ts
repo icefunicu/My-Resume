@@ -46,6 +46,7 @@ export const localizedSiteConfig = {
 
 export const siteConfig = {
   ...localizedSiteConfig.zh,
+  siteName: "作品小集",
   siteUrl,
   email: "2041487752dxj@gmail.com",
   icpRecord: "晋ICP备2026004157号-1",

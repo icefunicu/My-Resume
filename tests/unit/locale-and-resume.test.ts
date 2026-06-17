@@ -93,6 +93,16 @@ describe("metadata locale paths", () => {
     process.env.NEXT_PUBLIC_DEFAULT_LOCALE = originalDefaultLocale;
   });
 
+  it("uses the registered site name for home metadata", () => {
+    const metadata = getHomePageMetadata("zh");
+
+    expect(metadata.title).toEqual({ absolute: siteConfig.siteName });
+    expect(metadata.openGraph).toMatchObject({
+      title: siteConfig.siteName,
+      siteName: siteConfig.siteName,
+    });
+  });
+
   it("keeps alternates and canonical aligned for the explicit English home route", () => {
     const metadata = getHomePageMetadata("en", true);
 
