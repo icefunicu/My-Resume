@@ -20,6 +20,38 @@ interface ExperienceCardProps {
 const MAX_TIMELINE_PREVIEW_POINTS = 3;
 const GROUPED_CHILD_PREVIEW_POINTS = 2;
 
+function getExperienceContextName(item: TimelineItem | ProjectItem) {
+  return "company" in item ? item.company : item.name;
+}
+
+function getExperienceTechStack(item: TimelineItem | ProjectItem) {
+  return item.expandedDetails?.techStack?.length
+    ? item.expandedDetails.techStack
+    : item.techTags;
+}
+
+function getExperienceContextLabel(
+  item: TimelineItem | ProjectItem,
+  locale: "zh" | "en",
+) {
+  const contextName = getExperienceContextName(item);
+  return locale === "en"
+    ? `Project / context: ${contextName}`
+    : `项目名称/实践场景：${contextName}`;
+}
+
+function getExperienceTechStackLabel(
+  item: TimelineItem | ProjectItem,
+  locale: "zh" | "en",
+) {
+  const techStack = getExperienceTechStack(item);
+  if (techStack.length === 0) return "";
+
+  return locale === "en"
+    ? `Tech stack: ${techStack.slice(0, 4).join(" / ")}`
+    : `技术栈：${techStack.slice(0, 4).join(" / ")}`;
+}
+
 function normalizePreviewText(value?: string) {
   return value?.replace(/\r/g, "").replace(/\s+/g, " ").trim() ?? "";
 }
@@ -43,9 +75,6 @@ function getTimelinePreviewPoints(
   const points: string[] = [];
   const seen = new Set<string>();
   const details = item.expandedDetails;
-  const techStack = details?.techStack?.length
-    ? details.techStack
-    : item.techTags;
 
   const pushPoint = (value?: string) => {
     const normalized = normalizePreviewText(value);
@@ -54,19 +83,8 @@ function getTimelinePreviewPoints(
     points.push(normalized);
   };
 
-  pushPoint(
-    locale === "en"
-      ? `Project / context: ${item.company}`
-      : `项目名称/实践场景：${item.company}`,
-  );
-
-  if (techStack.length > 0) {
-    pushPoint(
-      locale === "en"
-        ? `Tech stack: ${techStack.slice(0, 4).join(" / ")}`
-        : `技术栈：${techStack.slice(0, 4).join(" / ")}`,
-    );
-  }
+  pushPoint(getExperienceContextLabel(item, locale));
+  pushPoint(getExperienceTechStackLabel(item, locale));
 
   item.keyOutcomes?.forEach(pushPoint);
 
@@ -97,7 +115,7 @@ function getTimelinePreviewPoints(
 }
 
 function getGroupChildTitle(item: TimelineItem | ProjectItem) {
-  return "company" in item ? item.company : item.name;
+  return getExperienceContextName(item);
 }
 
 function getGroupedChildPreviewPoints(
@@ -259,7 +277,10 @@ export const ExperienceCard = memo(function ExperienceCard({
                         </span>
                       </div>
                       <p className="experience-grouped-tech theme-copy-subtle break-words text-[12px] font-semibold leading-5 [overflow-wrap:anywhere] sm:text-[12.5px]">
-                        {child.techTags.slice(0, 4).join(" / ")}
+                        {getExperienceContextLabel(child, locale)}
+                      </p>
+                      <p className="experience-grouped-tech theme-copy-subtle break-words text-[12px] font-semibold leading-5 [overflow-wrap:anywhere] sm:text-[12.5px]">
+                        {getExperienceTechStackLabel(child, locale)}
                       </p>
                     </div>
                     <ul className="experience-grouped-points">
