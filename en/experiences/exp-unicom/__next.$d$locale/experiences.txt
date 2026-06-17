@@ -2,4 +2,4 @@
 2:I[39756,["/My-Resume/_next/static/chunks/08y8bjf87zaw2.js","/My-Resume/_next/static/chunks/102p85nu9k53k.js","/My-Resume/_next/static/chunks/0d3shmwh5_nmn.js","/My-Resume/_next/static/chunks/0ihvrn5-902tt.js","/My-Resume/_next/static/chunks/0.dx2-8mjq60-.js"],"default"]
 3:I[37457,["/My-Resume/_next/static/chunks/08y8bjf87zaw2.js","/My-Resume/_next/static/chunks/102p85nu9k53k.js","/My-Resume/_next/static/chunks/0d3shmwh5_nmn.js","/My-Resume/_next/static/chunks/0ihvrn5-902tt.js","/My-Resume/_next/static/chunks/0.dx2-8mjq60-.js"],"default"]
 4:[]
-0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"LjmuifHwwPYx09-PWFVz-"}
+0:{"rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"isPartial":false,"staleTime":300,"varyParams":"$W4","buildId":"nKhFVRcHbtuYURUBlhC4W"}
